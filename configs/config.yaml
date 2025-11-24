@@ -1,0 +1,57 @@
+# Configuration file for the course recommendation system
+
+# Data configuration
+data:
+  data_dir: "data/raw"
+  interactions_file: "interactions.csv"
+  items_file: "items.csv"
+  users_file: "users.csv"
+  test_size: 0.2
+  random_state: 42
+
+# Model configurations
+models:
+  content_based:
+    use_sentence_transformers: false
+    model_name: "all-MiniLM-L6-v2"
+    max_features: 1000
+    ngram_range: [1, 2]
+    
+  collaborative:
+    n_factors: 50
+    n_iterations: 20
+    learning_rate: 0.01
+    regularization: 0.01
+    random_state: 42
+    
+  hybrid:
+    content_weight: 0.5
+    collaborative_weight: 0.5
+    use_ml_blending: false
+    blending_model: "linear"
+
+# Evaluation configuration
+evaluation:
+  k_values: [5, 10, 20]
+  n_recommendations: 20
+  metrics:
+    - "precision"
+    - "recall"
+    - "ndcg"
+    - "map"
+    - "hit_rate"
+    - "coverage"
+    - "diversity"
+
+# Training configuration
+training:
+  random_state: 42
+  verbose: true
+  save_models: true
+  model_dir: "models"
+
+# Demo configuration
+demo:
+  n_recommendations: 10
+  cache_data: true
+  cache_models: true
